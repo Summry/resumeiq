@@ -1,0 +1,29 @@
+node_modules
+.pnpm-store
+dist
+.next
+build
+out
+.turbo
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+coverage
+
+# Build outputs
+**/*.js.map
+**/*.d.ts.map
+
+# Compiled JS (source is TS, we don't need compiled output in git)
+apps/api/src/**/*.js
+apps/api/src/**/*.d.ts
+apps/api/test/**/*.js
+apps/api/test/**/*.d.ts
+apps/web/src/**/*.js
+apps/web/src/**/*.d.ts
+apps/web/next.config.js
+apps/web/next.config.d.ts
+packages/types/src/**/*.js
+packages/types/src/**/*.d.ts
