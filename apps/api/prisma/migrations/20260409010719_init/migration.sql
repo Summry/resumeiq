@@ -1,10 +1,8 @@
 -- CreateEnum
 CREATE TYPE "Plan" AS ENUM ('FREE', 'PRO');
 
--- CreateEnum
 CREATE TYPE "ReviewStatus" AS ENUM ('PENDING', 'PROCESSING', 'COMPLETE', 'FAILED');
 
--- CreateEnum
 CREATE TYPE "SubscriptionStatus" AS ENUM ('active', 'canceled', 'incomplete', 'past_due', 'trialing', 'unpaid');
 
 -- CreateTable
@@ -19,7 +17,6 @@ CREATE TABLE "users" (
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "sessions" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -30,7 +27,6 @@ CREATE TABLE "sessions" (
     CONSTRAINT "sessions_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "resumes" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -42,7 +38,6 @@ CREATE TABLE "resumes" (
     CONSTRAINT "resumes_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "reviews" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -61,7 +56,6 @@ CREATE TABLE "reviews" (
     CONSTRAINT "reviews_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "subscriptions" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -78,30 +72,19 @@ CREATE TABLE "subscriptions" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
-
--- CreateIndex
 CREATE UNIQUE INDEX "sessions_token_key" ON "sessions"("token");
-
--- CreateIndex
 CREATE UNIQUE INDEX "subscriptions_userId_key" ON "subscriptions"("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "subscriptions_stripeCustomerId_key" ON "subscriptions"("stripeCustomerId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "subscriptions_stripeSubscriptionId_key" ON "subscriptions"("stripeSubscriptionId");
 
--- AddForeignKey
+-- AddForeignKeys
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "resumes" ADD CONSTRAINT "resumes_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "reviews" ADD CONSTRAINT "reviews_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "reviews" ADD CONSTRAINT "reviews_resumeId_fkey" FOREIGN KEY ("resumeId") REFERENCES "resumes"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+alter table "sessions" enable row level security;
+alter table "resumes" enable row level security;
+alter table "reviews" enable row level security;
+alter table "subscriptions" enable row level security;
