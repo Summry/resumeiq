@@ -51,15 +51,15 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # deploy-to-railway:
-  #   needs: build-and-push
-  #   runs-on: ubuntu-latest
-  #   environment: production
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Install Railway CLI
-  #       run: npm install -g @railway/cli
-  #     - name: Deploy to Railway
-  #       run: railway up --service api --detach
-  #       env:
-  #         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+  deploy-to-railway:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      - name: Deploy to Railway
+        run: railway up --service api --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
